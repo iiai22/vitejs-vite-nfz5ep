@@ -9,6 +9,8 @@ let imagemAtual = null;
 const inputNome = document.getElementById('inputNome');
 const erroElement = document.getElementById('erro');
 let blurValue = 15;
+const reducaoBlur = 4;
+let tentativasRestantes = 5;
 
 // Função para exibir uma imagem aleatória, exceto a imagem atual
 function exibirImagemAleatoria() {
@@ -34,6 +36,17 @@ function exibirImagemAleatoria() {
 
   // Limpa a mensagem de erro
   erroElement.textContent = '';
+
+  // Redimensiona o tamanho do input proporcionalmente à largura da imagem
+  const inputWidth = imgElement.offsetWidth * 0.5; // Define a largura do input como metade da largura da imagem
+  inputNome.style.width = `${inputWidth}px`;
+
+  // Reseta o valor do blur
+  blurValue = 15;
+  imgElement.style.filter = `blur(${blurValue}px)`;
+
+  // Redefine o número de tentativas restantes para 5
+  tentativasRestantes = 5;
 }
 
 // Verifica se o texto inserido corresponde ao nome da imagem atual
@@ -41,17 +54,30 @@ function verificarResposta() {
   if (inputNome.value.trim().toLowerCase() === imagemAtual.nome.toLowerCase()) {
     exibirImagemAleatoria();
     inputNome.value = ''; // Limpa o campo de entrada
-    blurValue = 15; // Reseta o valor do blur
   } else {
-    blurValue -= 5; // Subtrai 5px do blur
+    blurValue -= reducaoBlur; // Subtrai o valor de reducaoBlur do blur
     if (blurValue < 0) {
       blurValue = 0; // Define o valor mínimo do blur como 0
     }
     const container = document.getElementById('container');
     const imgElement = container.querySelector('img');
     imgElement.style.filter = `blur(${blurValue}px)`; // Atualiza o valor do blur na imagem
-    erroElement.textContent = 'Errou, tente novamente.'; // Exibe a mensagem de erro
+    tentativasRestantes--; // Reduz o número de tentativas restantes
+    if (tentativasRestantes === 0) {
+      exibirMensagemPerdeu();
+    } else {
+      erroElement.textContent = `Errou, tente novamente. Tentativas restantes: ${tentativasRestantes}`;
+    }
   }
+}
+
+// Função para exibir a mensagem de "Perdeu"
+function exibirMensagemPerdeu() {
+  exibirImagemAleatoria();
+  erroElement.textContent = 'PERDEU BOBÃO';
+  setTimeout(() => {
+    erroElement.textContent = '';
+  }, '2000');
 }
 
 // Chama a função para exibir a primeira imagem quando a página carrega

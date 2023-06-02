@@ -1,6 +1,7 @@
 * {
   margin: 0;
   padding: 0;
+  background-color: rgb(255, 252, 247);
 }
 
 body {
@@ -14,23 +15,36 @@ body {
 }
 
 #container {
-  grid-area: container;
+  position: relative;
   text-align: center;
+  grid-area: container;
+}
+
+#imagem {
+  max-width: 100%;
+  height: auto;
+  filter: blur(15px);
 }
 
 #container img {
   width: 50vw;
-  cursor: pointer;
-  filter: blur(15px);
-  height: auto;
 }
 
 #inputNome {
-  grid-area: input;
-  margin-top: -40%;
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 50%;
+  padding: 10px;
+  font-size: 16px;
+  border: none;
+  border-radius: 4px;
+  background-color: antiquewhite;
 }
 
 #erro {
   color: red;
-  margin-top: -70vh;
+  margin-top: 10px;
+  font-size: 14px;
 }
