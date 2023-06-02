@@ -33,7 +33,8 @@ body {
 }
 
 #container img {
-  width: 50vw;
+  min-width: 35vw;
+  max-width: 50vw;
   border-radius: 20px;
 }
 
@@ -42,7 +43,7 @@ body {
   bottom: 40px;
   left: 50%;
   transform: translateX(-50%);
-  width: 50%;
+  min-width: 50%;
   padding: 10px;
   font-size: 16px;
   border: none;
@@ -56,4 +57,18 @@ body {
   margin-top: 10px;
   font-size: 16px;
   font-weight: bold;
+}
+
+#contagem {
+  position: absolute;
+  top: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  min-width: 20%;
+  padding: 10px;
+  font-size: 16px;
+  border: none;
+  border-radius: 4px;
+  background-color: #28403d;
+  color: white;
 }

@@ -11,6 +11,11 @@ const erroElement = document.getElementById('erro');
 let blurValue = 15;
 const reducaoBlur = 4;
 let tentativasRestantes = 5;
+let pontos = 0;
+const score = document.getElementById('contagem');
+
+// Atualiza a pontuação
+score.textContent = `Score: ${pontos}`;
 
 // Função para exibir uma imagem aleatória, exceto a imagem atual
 function exibirImagemAleatoria() {
@@ -37,10 +42,6 @@ function exibirImagemAleatoria() {
   // Limpa a mensagem de erro
   erroElement.textContent = '';
 
-  // Redimensiona o tamanho do input proporcionalmente à largura da imagem
-  const inputWidth = imgElement.offsetWidth * 0.5; // Define a largura do input como metade da largura da imagem
-  inputNome.style.width = `${inputWidth}px`;
-
   // Reseta o valor do blur
   blurValue = 15;
   imgElement.style.filter = `blur(${blurValue}px)`;
@@ -54,6 +55,8 @@ function verificarResposta() {
   if (inputNome.value.trim().toLowerCase() === imagemAtual.nome.toLowerCase()) {
     exibirImagemAleatoria();
     inputNome.value = ''; // Limpa o campo de entrada
+    pontos++; // Soma 1 ponto
+    score.textContent = `Score: ${pontos}`;
   } else {
     blurValue -= reducaoBlur; // Subtrai o valor de reducaoBlur do blur
     if (blurValue < 0) {
