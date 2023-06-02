@@ -1,7 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&display=swap');
+
 * {
   margin: 0;
   padding: 0;
-  background-color: rgb(255, 252, 247);
+  background-color: #182625;
+  font-family: 'Roboto', sans-serif;
 }
 
 body {
@@ -18,6 +21,9 @@ body {
   position: relative;
   text-align: center;
   grid-area: container;
+  border: solid 50px #455559;
+  border-radius: 20px;
+  background-color: #455559;
 }
 
 #imagem {
@@ -28,6 +34,7 @@ body {
 
 #container img {
   width: 50vw;
+  border-radius: 20px;
 }
 
 #inputNome {
@@ -40,11 +47,13 @@ body {
   font-size: 16px;
   border: none;
   border-radius: 4px;
-  background-color: antiquewhite;
+  background-color: #28403d;
+  color: white;
 }
 
 #erro {
-  color: red;
+  color: #3d5a73;
   margin-top: 10px;
-  font-size: 14px;
+  font-size: 16px;
+  font-weight: bold;
 }
