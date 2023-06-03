@@ -69,7 +69,8 @@ function verificarResposta() {
     if (tentativasRestantes === 0) {
       exibirMensagemPerdeu();
     } else {
-      erroElement.textContent = `Errou, tente novamente. Tentativas restantes: ${tentativasRestantes}`;
+      erroElement.textContent = `Errou, tente novamente
+       Tentativas restantes: ${tentativasRestantes}`;
     }
   }
 }
@@ -78,9 +79,11 @@ function verificarResposta() {
 function exibirMensagemPerdeu() {
   exibirImagemAleatoria();
   erroElement.textContent = 'PERDEU BOBÃO';
+  pontos = 0; // Reseta o score para zero
+  score.textContent = `Score: ${pontos}`;
   setTimeout(() => {
     erroElement.textContent = '';
-  }, '2000');
+  }, 2000);
 }
 
 // Chama a função para exibir a primeira imagem quando a página carrega
