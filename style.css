@@ -24,17 +24,15 @@ body {
   border: solid 50px #455559;
   border-radius: 20px;
   background-color: #455559;
-}
-
-#imagem {
-  max-width: 100%;
-  height: auto;
-  filter: blur(15px);
+  width: 400px; /* Defina o tamanho desejado para o contêiner */
+  height: 300px; /* Defina o tamanho desejado para o contêiner */
+  overflow: hidden; /* Oculta qualquer conteúdo que exceda o tamanho do contêiner */
 }
 
 #container img {
-  min-width: 36vw;
-  max-width: 38vw;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Controla o dimensionamento da imagem para preencher o contêiner */
   border-radius: 20px;
 }
 
@@ -56,7 +54,7 @@ body {
   padding: 8px;
   border-radius: 4px;
   color: white;
-  margin-top: 10px;
+  margin-bottom: 20px;
   font-size: 16px;
   font-weight: 500;
   letter-spacing: 1px;
@@ -64,7 +62,6 @@ body {
   bottom: 70px;
   left: 50%;
   transform: translateX(-50%);
-  margin-bottom: 10%;
 }
 
 #contagem {
