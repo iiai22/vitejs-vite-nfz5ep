@@ -51,6 +51,7 @@ const reducaoBlur = 4;
 let tentativasRestantes = 5;
 let pontos = 0;
 const score = document.getElementById('contagem');
+let nomeParcial = '';
 
 // Atualiza a pontuação
 score.textContent = `Score: ${pontos}`;
@@ -90,6 +91,9 @@ function exibirImagemAleatoria() {
 
   // Redefine o número de tentativas restantes para 5
   tentativasRestantes = 5;
+
+  // Limpa o nome parcial (dica)
+  nomeParcial = '';
 }
 
 // Verifica se o texto inserido corresponde ao nome da imagem atual
@@ -100,41 +104,49 @@ function verificarResposta() {
     pontos++; // Soma 1 ponto
     score.textContent = `Score: ${pontos}`;
   } else {
-    blurValue -= reducaoBlur; // Subtrai o valor de reducaoBlur do blur
-    if (blurValue < 0) {
-      blurValue = 0; // Define o valor mínimo do blur como 0
+    const nome = imagemAtual.nome;
+    let dicaArray = nomeParcial.split('');
+
+    if (nomeParcial.length < nome.length) {
+      let index = Math.floor(Math.random() * nome.length);
+      while (dicaArray[index] !== '_' && nome[index] !== ' ') {
+        index = Math.floor(Math.random() * nome.length);
+      }
+
+      dicaArray[index] = nome[index]; // Substitui o underscore pela letra correta
+      nomeParcial = dicaArray.join('');
     }
-    const container = document.getElementById('container');
-    const imgElement = container.querySelector('img');
-    imgElement.style.filter = `blur(${blurValue}px)`; // Atualiza o valor do blur na imagem
-    tentativasRestantes--; // Reduz o número de tentativas restantes
+
+    tentativasRestantes--;
+
     if (tentativasRestantes === 0) {
       exibirMensagemPerdeu();
     } else {
-      erroElement.textContent = `Errou, tente novamente
-       Tentativas restantes: ${tentativasRestantes}`;
+      erroElement.textContent = `Errou, tente novamente.
+Tentativas restantes: ${tentativasRestantes}
+Dica: ${nomeParcial}`;
     }
   }
 }
 
-// Função para exibir a mensagem de "Perdeu"
+// Exibe a mensagem de perda e reinicia o jogo
 function exibirMensagemPerdeu() {
   exibirImagemAleatoria();
   erroElement.textContent = 'PERDEU BOBÃO';
   pontos = 0; // Reseta o score para zero
   score.textContent = `Score: ${pontos}`;
+  nomeParcial = '';
   setTimeout(() => {
     erroElement.textContent = '';
-  }, 2000);
+  }, 3000);
 }
 
-// Chama a função para exibir a primeira imagem quando a página carrega
-window.onload = function () {
-  exibirImagemAleatoria();
-  inputNome.addEventListener('keydown', function (event) {
-    if (event.key === 'Enter') {
-      event.preventDefault(); // Impede o envio do formulário ao pressionar Enter
-      verificarResposta();
-    }
-  });
-};
+// Evento de tecla Enter no campo de entrada
+inputNome.addEventListener('keyup', function (event) {
+  if (event.key === 'Enter') {
+    verificarResposta();
+  }
+});
+
+// Exibe a primeira imagem
+exibirImagemAleatoria();
