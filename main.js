@@ -42,7 +42,6 @@ const imagens = [
   { nome: 'Audi RS6', url: 'https://i.imgur.com/7Y86HOC.png' },
   { nome: 'Ferrari F40', url: 'https://i.imgur.com/5qWqCpQ.jpg' },
 ];
-
 let imagemAtual = null;
 const inputNome = document.getElementById('inputNome');
 const erroElement = document.getElementById('erro');
@@ -94,6 +93,10 @@ function exibirImagemAleatoria() {
 
   // Limpa o nome parcial (dica)
   nomeParcial = '';
+  document.getElementById('dica').textContent = getDicaFormatada(
+    novaImagem.nome,
+    nomeParcial
+  );
 }
 
 // Verifica se o texto inserido corresponde ao nome da imagem atual
@@ -104,29 +107,55 @@ function verificarResposta() {
     pontos++; // Soma 1 ponto
     score.textContent = `Score: ${pontos}`;
   } else {
-    const nome = imagemAtual.nome;
-    let dicaArray = nomeParcial.split('');
-
-    if (nomeParcial.length < nome.length) {
-      let index = Math.floor(Math.random() * nome.length);
-      while (dicaArray[index] !== '_' && nome[index] !== ' ') {
-        index = Math.floor(Math.random() * nome.length);
-      }
-
-      dicaArray[index] = nome[index]; // Substitui o underscore pela letra correta
-      nomeParcial = dicaArray.join('');
+    blurValue -= reducaoBlur; // Subtrai o valor de reducaoBlur do blur
+    if (blurValue < 0) {
+      blurValue = 0; // Define o valor mínimo do blur como 0
     }
-
-    tentativasRestantes--;
-
+    const container = document.getElementById('container');
+    const imgElement = container.querySelector('img');
+    imgElement.style.filter = `blur(${blurValue}px)`; // Atualiza o valor do blur na imagem
+    tentativasRestantes--; // Reduz o número de tentativas restantes
     if (tentativasRestantes === 0) {
       exibirMensagemPerdeu();
     } else {
+      const nome = imagemAtual.nome;
+      let letrasDisponiveis = getLetrasDisponiveis(nome, nomeParcial);
+      let letraDica =
+        letrasDisponiveis[Math.floor(Math.random() * letrasDisponiveis.length)];
+      nomeParcial += letraDica;
       erroElement.textContent = `Errou, tente novamente.
 Tentativas restantes: ${tentativasRestantes}
-Dica: ${nomeParcial}`;
+Dica: ${getDicaFormatada(nome, nomeParcial)}`;
     }
   }
+}
+
+// Função para obter as letras disponíveis para a dica
+function getLetrasDisponiveis(nomeCompleto, nomeParcial) {
+  const letrasDisponiveis = [];
+  for (let i = 0; i < nomeCompleto.length; i++) {
+    const char = nomeCompleto[i];
+    if (char !== ' ' && nomeParcial.indexOf(char) === -1) {
+      letrasDisponiveis.push(char);
+    }
+  }
+  return letrasDisponiveis;
+}
+
+// Função para obter a dica formatada com espaços
+function getDicaFormatada(nomeCompleto, nomeParcial) {
+  let dicaFormatada = '';
+  for (let i = 0; i < nomeCompleto.length; i++) {
+    const char = nomeCompleto[i];
+    if (char === ' ') {
+      dicaFormatada += ' '; // Mantém o espaço na dica
+    } else if (nomeParcial.indexOf(char) !== -1) {
+      dicaFormatada += char; // Mostra as letras corretas da dica
+    } else {
+      dicaFormatada += '_'; // Substitui as letras faltantes por underscores
+    }
+  }
+  return dicaFormatada;
 }
 
 // Exibe a mensagem de perda e reinicia o jogo
@@ -136,6 +165,7 @@ function exibirMensagemPerdeu() {
   pontos = 0; // Reseta o score para zero
   score.textContent = `Score: ${pontos}`;
   nomeParcial = '';
+
   setTimeout(() => {
     erroElement.textContent = '';
   }, 3000);
