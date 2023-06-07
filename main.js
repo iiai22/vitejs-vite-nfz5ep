@@ -7,8 +7,8 @@ const imagens = [
   { nome: 'HONDA CIVIC', url: 'https://i.imgur.com/ZweUXz0.jpg' },
   { nome: 'SUBARU BRZ', url: 'https://i.imgur.com/06xMuTm.jpg' },
   { nome: 'SUBARU IMPREZA', url: 'https://i.imgur.com/9VXG7ze.jpg' },
-  { nome: 'NISSAN GTR-R34', url: 'https://i.imgur.com/0rTdw7e.jpg' },
-  { nome: 'NISSAN GTR-R35', url: 'https://i.imgur.com/KcnK1Da.jpg' },
+  { nome: 'NISSAN GTR R34', url: 'https://i.imgur.com/0rTdw7e.jpg' },
+  { nome: 'NISSAN GTR R35', url: 'https://i.imgur.com/KcnK1Da.jpg' },
   { nome: 'Ford Mustang', url: 'https://i.imgur.com/7e9Qv2m.jpg' },
   { nome: 'Chevrolet Camaro', url: 'https://i.imgur.com/2cLKJSA.jpg' },
   { nome: 'BMW 3 Series', url: 'https://i.imgur.com/VZzWKEL.jpg' },
@@ -54,6 +54,11 @@ let nomeParcial = '';
 
 // Atualiza a pontuação
 score.textContent = `Score: ${pontos}`;
+
+// Função para atualizar a pontuação
+function atualizarPontuacao() {
+  score.textContent = `Score: ${pontos}`;
+}
 
 // Função para exibir uma imagem aleatória, exceto a imagem atual
 function exibirImagemAleatoria() {
@@ -102,10 +107,10 @@ function exibirImagemAleatoria() {
 // Verifica se o texto inserido corresponde ao nome da imagem atual
 function verificarResposta() {
   if (inputNome.value.trim().toLowerCase() === imagemAtual.nome.toLowerCase()) {
-    exibirImagemAleatoria();
     inputNome.value = ''; // Limpa o campo de entrada
     pontos++; // Soma 1 ponto
-    score.textContent = `Score: ${pontos}`;
+    atualizarPontuacao(); // Atualiza a pontuação
+    exibirImagemAleatoria();
   } else {
     blurValue -= reducaoBlur; // Subtrai o valor de reducaoBlur do blur
     if (blurValue < 0) {
@@ -163,7 +168,7 @@ function exibirMensagemPerdeu() {
   exibirImagemAleatoria();
   erroElement.textContent = 'PERDEU BOBÃO';
   pontos = 0; // Reseta o score para zero
-  score.textContent = `Score: ${pontos}`;
+  atualizarPontuacao(); // Atualiza a pontuação
   nomeParcial = '';
 
   setTimeout(() => {
