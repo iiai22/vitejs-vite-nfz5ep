@@ -43,83 +43,73 @@ const imagens = [
   { nome: 'Ferrari F40', url: 'https://i.imgur.com/5qWqCpQ.jpg' },
 ];
 let imagemAtual = null;
-const inputNome = document.getElementById('inputNome');
-const erroElement = document.getElementById('erro');
 let blurValue = 15;
 const reducaoBlur = 4;
 let tentativasRestantes = 5;
 let pontos = 0;
-const score = document.getElementById('contagem');
 let nomeParcial = '';
 
-// Atualiza a pontuação
-score.textContent = `Score: ${pontos}`;
+const inputNome = document.getElementById('inputNome');
+const erroElement = document.getElementById('erro');
+const score = document.getElementById('contagem');
+const dicaElement = document.getElementById('dica');
 
-// Função para atualizar a pontuação
+// Atualiza a pontuação
 function atualizarPontuacao() {
   score.textContent = `Score: ${pontos}`;
 }
 
-// Função para exibir uma imagem aleatória, exceto a imagem atual
+// Exibe uma imagem aleatória, exceto a imagem atual
 function exibirImagemAleatoria() {
   const container = document.getElementById('container');
-  container.innerHTML = ''; // Limpa o contêiner
+  container.innerHTML = '';
 
-  // Seleciona uma imagem aleatória, exceto a imagem atual
   let novaImagem;
   do {
     novaImagem = imagens[Math.floor(Math.random() * imagens.length)];
   } while (novaImagem === imagemAtual);
 
-  // Cria um elemento de imagem
   const imgElement = document.createElement('img');
   imgElement.src = novaImagem.url;
-  imgElement.style.maxWidth = '100%'; // Define a largura máxima como 100%
-  imgElement.style.maxHeight = '100%'; // Define a altura máxima como 100%
-  imgElement.style.objectFit = 'contain'; // Ajusta a escala para caber no contêiner
+  imgElement.style.maxWidth = '100%';
+  imgElement.style.maxHeight = '100%';
+  imgElement.style.objectFit = 'contain';
   imgElement.style.backgroundColor = '#455559';
-  imgElement.style.filter = `blur(${blurValue}px)`; // Aplica o blur
+  imgElement.style.filter = `blur(${blurValue}px)`;
 
-  // Adiciona a imagem ao contêiner
   container.appendChild(imgElement);
 
-  // Atualiza a imagem atual
   imagemAtual = novaImagem;
-
-  // Limpa a mensagem de erro
   erroElement.textContent = '';
 
-  // Reseta o valor do blur
   blurValue = 15;
   imgElement.style.filter = `blur(${blurValue}px)`;
 
-  // Redefine o número de tentativas restantes para 5
   tentativasRestantes = 5;
 
-  // Limpa o nome parcial (dica)
   nomeParcial = '';
-  document.getElementById('dica').textContent = getDicaFormatada(
-    novaImagem.nome,
-    nomeParcial
-  );
+  dicaElement.textContent = getDicaFormatada(novaImagem.nome, nomeParcial);
 }
 
 // Verifica se o texto inserido corresponde ao nome da imagem atual
 function verificarResposta() {
   if (inputNome.value.trim().toLowerCase() === imagemAtual.nome.toLowerCase()) {
-    inputNome.value = ''; // Limpa o campo de entrada
-    pontos++; // Soma 1 ponto
-    atualizarPontuacao(); // Atualiza a pontuação
+    inputNome.value = '';
+    pontos++;
+    atualizarPontuacao();
     exibirImagemAleatoria();
   } else {
-    blurValue -= reducaoBlur; // Subtrai o valor de reducaoBlur do blur
+    blurValue -= reducaoBlur;
     if (blurValue < 0) {
-      blurValue = 0; // Define o valor mínimo do blur como 0
+      blurValue = 0;
     }
+
     const container = document.getElementById('container');
     const imgElement = container.querySelector('img');
-    imgElement.style.filter = `blur(${blurValue}px)`; // Atualiza o valor do blur na imagem
-    tentativasRestantes--; // Reduz o número de tentativas restantes
+    imgElement.style.filter = `blur(${blurValue}px)`;
+
+    tentativasRestantes--;
+
     if (tentativasRestantes === 0) {
       exibirMensagemPerdeu();
     } else {
@@ -135,7 +125,7 @@ Dica: ${getDicaFormatada(nome, nomeParcial)}`;
   }
 }
 
-// Função para obter as letras disponíveis para a dica
+// Obtém as letras disponíveis para a dica
 function getLetrasDisponiveis(nomeCompleto, nomeParcial) {
   const letrasDisponiveis = [];
   for (let i = 0; i < nomeCompleto.length; i++) {
@@ -147,17 +137,17 @@ function getLetrasDisponiveis(nomeCompleto, nomeParcial) {
   return letrasDisponiveis;
 }
 
-// Função para obter a dica formatada com espaços
+// Obtém a dica formatada com espaços
 function getDicaFormatada(nomeCompleto, nomeParcial) {
   let dicaFormatada = '';
   for (let i = 0; i < nomeCompleto.length; i++) {
     const char = nomeCompleto[i];
     if (char === ' ') {
-      dicaFormatada += ' '; // Mantém o espaço na dica
+      dicaFormatada += ' ';
     } else if (nomeParcial.indexOf(char) !== -1) {
-      dicaFormatada += char; // Mostra as letras corretas da dica
+      dicaFormatada += char;
     } else {
-      dicaFormatada += '_'; // Substitui as letras faltantes por underscores
+      dicaFormatada += '_';
     }
   }
   return dicaFormatada;
@@ -165,10 +155,10 @@ function getDicaFormatada(nomeCompleto, nomeParcial) {
 
 // Exibe a mensagem de perda e reinicia o jogo
 function exibirMensagemPerdeu() {
+  pontos = 0;
+  atualizarPontuacao();
   exibirImagemAleatoria();
   erroElement.textContent = 'PERDEU BOBÃO';
-  pontos = 0; // Reseta o score para zero
-  atualizarPontuacao(); // Atualiza a pontuação
   nomeParcial = '';
 
   setTimeout(() => {
@@ -179,7 +169,9 @@ function exibirMensagemPerdeu() {
 // Evento de tecla Enter no campo de entrada
 inputNome.addEventListener('keyup', function (event) {
   if (event.key === 'Enter') {
-    verificarResposta();
+    if (inputNome.value.trim() !== '') {
+      verificarResposta();
+    }
   }
 });
 
