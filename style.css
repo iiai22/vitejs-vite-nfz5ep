@@ -12,8 +12,8 @@ body {
   place-items: center;
   height: 100vh;
   grid-template-areas:
-    'container data-container'
-    'input data-container';
+    'container '
+    'input ';
   grid-gap: 10px;
 }
 
@@ -27,6 +27,7 @@ body {
   width: 400px; /* Defina o tamanho desejado para o contêiner */
   height: 300px; /* Defina o tamanho desejado para o contêiner */
   overflow: hidden; /* Oculta qualquer conteúdo que exceda o tamanho do contêiner */
+  margin-left: 10px;
 }
 
 #container img {
@@ -91,4 +92,5 @@ body {
   top: -14%;
   color: white;
   font-weight: 500;
+  margin-right: 10px;
 }
