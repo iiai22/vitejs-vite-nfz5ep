@@ -7,11 +7,14 @@
     <title>Vite App</title>
   </head>
   <body>
-    <div id="container"></div>
-    <input type="text" id="inputNome" placeholder="Digite o nome do carro" />
-    <p id="erro"></p>
-    <p id="contagem">Score: 0</p>
-    <!--<div class="data-container">Scores mais altos:</div>-->
+    <div class="grid">
+      <div class="data-container-l grid-row-span-2"></div>
+      <p id="contagem">Score: 0</p>
+      <div id="container"></div>
+      <input type="text" id="inputNome" placeholder="Digite o nome do carro" />
+      <p id="erro"></p>
+      <div class="data-container-r grid-row-span-2"></div>
+    </div>
 
     <script type="module" src="/main.js"></script>
   </body>
