@@ -42,6 +42,7 @@ const imagens = [
   { nome: 'Audi RS6', url: 'https://i.imgur.com/7Y86HOC.png' },
   { nome: 'Ferrari F40', url: 'https://i.imgur.com/5qWqCpQ.jpg' },
 ];
+
 let imagemAtual = null;
 let blurValue = 15;
 const reducaoBlur = 4;
@@ -53,13 +54,28 @@ const inputNome = document.getElementById('inputNome');
 const erroElement = document.getElementById('erro');
 const score = document.getElementById('contagem');
 const dicaElement = document.getElementById('dica');
+const ultimosScoresElement = document.querySelector('.data-container-r ul');
 
-// Atualiza a pontuação
+// Obter os últimos scores do localStorage ou inicializar um array vazio
+let scores = JSON.parse(localStorage.getItem('scores')) || [];
+
+// Atualizar a pontuação
 function atualizarPontuacao() {
   score.textContent = `Score: ${pontos}`;
 }
 
-// Exibe uma imagem aleatória, exceto a imagem atual
+// Atualizar a lista de últimos scores no HTML
+function atualizarUltimosScores() {
+  ultimosScoresElement.innerHTML = '';
+
+  for (let i = scores.length - 1; i >= 0; i--) {
+    const liElement = document.createElement('li');
+    liElement.textContent = `Score: ${scores[i]}`;
+    ultimosScoresElement.appendChild(liElement);
+  }
+}
+
+// Exibir uma imagem aleatória, exceto a imagem atual
 function exibirImagemAleatoria() {
   const container = document.getElementById('container');
   container.innerHTML = '';
@@ -91,7 +107,7 @@ function exibirImagemAleatoria() {
   dicaElement.textContent = getDicaFormatada(novaImagem.nome, nomeParcial);
 }
 
-// Verifica se o texto inserido corresponde ao nome da imagem atual
+// Verificar se o texto inserido corresponde ao nome da imagem atual
 function verificarResposta() {
   if (inputNome.value.trim().toLowerCase() === imagemAtual.nome.toLowerCase()) {
     inputNome.value = '';
@@ -125,7 +141,7 @@ Dica: ${getDicaFormatada(nome, nomeParcial)}`;
   }
 }
 
-// Obtém as letras disponíveis para a dica
+// Obter as letras disponíveis para a dica
 function getLetrasDisponiveis(nomeCompleto, nomeParcial) {
   const letrasDisponiveis = [];
   for (let i = 0; i < nomeCompleto.length; i++) {
@@ -137,7 +153,7 @@ function getLetrasDisponiveis(nomeCompleto, nomeParcial) {
   return letrasDisponiveis;
 }
 
-// Obtém a dica formatada com espaços
+// Obter a dica formatada com espaços
 function getDicaFormatada(nomeCompleto, nomeParcial) {
   let dicaFormatada = '';
   for (let i = 0; i < nomeCompleto.length; i++) {
@@ -153,8 +169,12 @@ function getDicaFormatada(nomeCompleto, nomeParcial) {
   return dicaFormatada;
 }
 
-// Exibe a mensagem de perda e reinicia o jogo
+// Exibir a mensagem de perda e reiniciar o jogo
 function exibirMensagemPerdeu() {
+  scores.push(pontos);
+  localStorage.setItem('scores', JSON.stringify(scores));
+  atualizarUltimosScores();
+
   pontos = 0;
   atualizarPontuacao();
   exibirImagemAleatoria();
@@ -175,5 +195,5 @@ inputNome.addEventListener('keyup', function (event) {
   }
 });
 
-// Exibe a primeira imagem
+// Exibir a primeira imagem
 exibirImagemAleatoria();
