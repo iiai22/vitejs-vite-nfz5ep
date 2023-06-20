@@ -69,9 +69,12 @@ function atualizarUltimosScores() {
   ultimosScoresElement.innerHTML = '';
 
   for (let i = scores.length - 1; i >= 0; i--) {
-    const liElement = document.createElement('li');
-    liElement.textContent = `Score: ${scores[i]}`;
-    ultimosScoresElement.appendChild(liElement);
+    const scoreValue = scores[i];
+    if (scoreValue !== 0) {
+      const liElement = document.createElement('li');
+      liElement.textContent = `Score: ${scoreValue}`;
+      ultimosScoresElement.appendChild(liElement);
+    }
   }
 }
 
@@ -197,3 +200,6 @@ inputNome.addEventListener('keyup', function (event) {
 
 // Exibir a primeira imagem
 exibirImagemAleatoria();
+
+// Inicializar a lista de últimos scores no carregamento da página
+atualizarUltimosScores();
