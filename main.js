@@ -80,6 +80,8 @@ function atualizarUltimosScores() {
 
 // Exibir uma imagem aleatória, exceto a imagem atual
 function exibirImagemAleatoria() {
+  atualizarUltimosScores();
+
   const container = document.getElementById('container');
   container.innerHTML = '';
 
@@ -176,8 +178,6 @@ function getDicaFormatada(nomeCompleto, nomeParcial) {
 function exibirMensagemPerdeu() {
   scores.push(pontos);
   localStorage.setItem('scores', JSON.stringify(scores));
-  atualizarUltimosScores();
-
   pontos = 0;
   atualizarPontuacao();
   exibirImagemAleatoria();
