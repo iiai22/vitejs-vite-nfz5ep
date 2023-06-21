@@ -55,7 +55,6 @@ const erroElement = document.getElementById('erro');
 const score = document.getElementById('contagem');
 const dicaElement = document.getElementById('dica');
 const ultimosScoresElement = document.querySelector('.data-container-r ul');
-const bestScoreElement = document.querySelector('.data-container-l ul');
 
 // Obter os últimos scores do localStorage ou inicializar um array vazio
 let scores = JSON.parse(localStorage.getItem('scores')) || [];
@@ -63,20 +62,6 @@ let scores = JSON.parse(localStorage.getItem('scores')) || [];
 // Atualizar a pontuação
 function atualizarPontuacao() {
   score.textContent = `Score: ${pontos}`;
-}
-
-// Atualizar a lista de melhores scores no HTML
-function atualizarMelhoresScores() {
-  bestScoreElement.innerHTML = '';
-
-  for (let i = scores.length - 1; i >= 0; i--) {
-    const bestScoreValue = scores[i];
-    if (bestScoreValue !== 0) {
-      const bestLiElement = document.createElement('li');
-      bestLiElement.textContent = `Score: ${bestScoreValue}`;
-      bestScoreElement.appendChild(bestLiElement);
-    }
-  }
 }
 
 // Atualizar a lista de últimos scores no HTML
@@ -96,7 +81,6 @@ function atualizarUltimosScores() {
 // Exibir uma imagem aleatória, exceto a imagem atual
 function exibirImagemAleatoria() {
   atualizarUltimosScores();
-  atualizarMelhoresScores();
 
   const container = document.getElementById('container');
   container.innerHTML = '';
@@ -146,23 +130,76 @@ function verificarResposta() {
     imgElement.style.filter = `blur(${blurValue}px)`;
 
     tentativasRestantes--;
-    erroElement.textContent = `Tentativas restantes: ${tentativasRestantes}`;
 
     if (tentativasRestantes === 0) {
-      inputNome.value = '';
-      scores.push(pontos); // Adicionar a pontuação atual ao array de scores
-      localStorage.setItem('scores', JSON.stringify(scores)); // Salvar os scores no localStorage
-      exibirImagemAleatoria();
-      pontos = 0;
-      atualizarPontuacao();
+      exibirMensagemPerdeu();
+    } else {
+      const nome = imagemAtual.nome;
+      let letrasDisponiveis = getLetrasDisponiveis(nome, nomeParcial);
+      let letraDica =
+        letrasDisponiveis[Math.floor(Math.random() * letrasDisponiveis.length)];
+      nomeParcial += letraDica;
+      erroElement.textContent = `Errou, tente novamente.
+Tentativas restantes: ${tentativasRestantes}
+Dica: ${getDicaFormatada(nome, nomeParcial)}`;
     }
   }
 }
 
-inputNome.addEventListener('keydown', function (event) {
+// Obter as letras disponíveis para a dica
+function getLetrasDisponiveis(nomeCompleto, nomeParcial) {
+  const letrasDisponiveis = [];
+  for (let i = 0; i < nomeCompleto.length; i++) {
+    const char = nomeCompleto[i];
+    if (char !== ' ' && nomeParcial.indexOf(char) === -1) {
+      letrasDisponiveis.push(char);
+    }
+  }
+  return letrasDisponiveis;
+}
+
+// Obter a dica formatada com espaços
+function getDicaFormatada(nomeCompleto, nomeParcial) {
+  let dicaFormatada = '';
+  for (let i = 0; i < nomeCompleto.length; i++) {
+    const char = nomeCompleto[i];
+    if (char === ' ') {
+      dicaFormatada += ' ';
+    } else if (nomeParcial.indexOf(char) !== -1) {
+      dicaFormatada += char;
+    } else {
+      dicaFormatada += '_';
+    }
+  }
+  return dicaFormatada;
+}
+
+// Exibir a mensagem de perda e reiniciar o jogo
+function exibirMensagemPerdeu() {
+  scores.push(pontos);
+  localStorage.setItem('scores', JSON.stringify(scores));
+  pontos = 0;
+  atualizarPontuacao();
+  exibirImagemAleatoria();
+  erroElement.textContent = 'PERDEU BOBÃO';
+  nomeParcial = '';
+
+  setTimeout(() => {
+    erroElement.textContent = '';
+  }, 3000);
+}
+
+// Evento de tecla Enter no campo de entrada
+inputNome.addEventListener('keyup', function (event) {
   if (event.key === 'Enter') {
-    verificarResposta();
+    if (inputNome.value.trim() !== '') {
+      verificarResposta();
+    }
   }
 });
 
+// Exibir a primeira imagem
 exibirImagemAleatoria();
+
+// Inicializar a lista de últimos scores no carregamento da página
+atualizarUltimosScores();
