@@ -55,6 +55,7 @@ const erroElement = document.getElementById('erro');
 const score = document.getElementById('contagem');
 const dicaElement = document.getElementById('dica');
 const ultimosScoresElement = document.querySelector('.data-container-r ul');
+const melhorScoreElement = document.querySelector('.data-container-l ul');
 
 // Obter os últimos scores do localStorage ou inicializar um array vazio
 let scores = JSON.parse(localStorage.getItem('scores')) || [];
@@ -78,9 +79,29 @@ function atualizarUltimosScores() {
   }
 }
 
+// Atualizar o melhor score no HTML
+function atualizarMelhorScore() {
+  const scoresOrdenados = scores.sort((a, b) => b - a);
+
+  // Limpar o conteúdo anterior
+  melhorScoreElement.innerHTML = '';
+
+  // Mapear as posições com os emojis correspondentes
+  const posicoes = ['🥇', '🥈', '🥉'];
+
+  // Exibir até os três melhores scores
+  scoresOrdenados.slice(0, 3).forEach((scoreValue, index) => {
+    const liElement = document.createElement('li');
+    const posicaoEmoji = posicoes[index] || ''; // Caso não haja emoji definido para a posição
+    liElement.textContent = `${posicaoEmoji}: Score ${scoreValue}`;
+    melhorScoreElement.appendChild(liElement);
+  });
+}
+
 // Exibir uma imagem aleatória, exceto a imagem atual
 function exibirImagemAleatoria() {
   atualizarUltimosScores();
+  atualizarMelhorScore();
 
   const container = document.getElementById('container');
   container.innerHTML = '';
@@ -202,4 +223,5 @@ inputNome.addEventListener('keyup', function (event) {
 exibirImagemAleatoria();
 
 // Inicializar a lista de últimos scores no carregamento da página
+atualizarMelhorScore();
 atualizarUltimosScores();
