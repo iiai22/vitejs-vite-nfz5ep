@@ -52,8 +52,9 @@ let nomeParcial = '';
 
 const inputNome = document.getElementById('inputNome');
 const erroElement = document.getElementById('erro');
-const score = document.getElementById('contagem');
+const score = document.getElementById('scoreBox');
 const dicaElement = document.getElementById('dica');
+const dicaBox = document.getElementById('dicaBox');
 const ultimosScoresElement = document.querySelector('.data-container-r ul');
 const melhorScoreElement = document.querySelector('.data-container-l ul');
 
@@ -117,13 +118,15 @@ function exibirImagemAleatoria() {
   imgElement.style.maxWidth = '100%';
   imgElement.style.maxHeight = '100%';
   imgElement.style.objectFit = 'contain';
-  imgElement.style.backgroundColor = '#455559';
+  imgElement.style.backgroundColor = '#2d3250;';
   imgElement.style.filter = `blur(${blurValue}px)`;
 
   container.appendChild(imgElement);
 
   imagemAtual = novaImagem;
   erroElement.textContent = '';
+  dicaBox.textContent = '';
+  dicaBox.style = '';
 
   blurValue = 15;
   imgElement.style.filter = `blur(${blurValue}px)`;
@@ -162,8 +165,22 @@ function verificarResposta() {
         letrasDisponiveis[Math.floor(Math.random() * letrasDisponiveis.length)];
       nomeParcial += letraDica;
       erroElement.textContent = `Errou, tente novamente.
-Tentativas restantes: ${tentativasRestantes}
-Dica: ${getDicaFormatada(nome, nomeParcial)}`;
+Tentativas restantes: ${tentativasRestantes}`;
+      dicaBox.textContent = `Dica: ${getDicaFormatada(nome, nomeParcial)}`;
+      dicaBox.style.borderRadius = '4px';
+      dicaBox.style.color = '#161e31';
+      dicaBox.style.marginBottom = '20px';
+      dicaBox.style.fontSize = '1rem';
+      dicaBox.style.fontWeight = '500';
+      dicaBox.style.letterSpacing = '1px';
+      dicaBox.style.position = 'fixed';
+      dicaBox.style.bottom = '70px';
+      dicaBox.style.left = '50%';
+      dicaBox.style.transform = 'translate(-50%, -13.5rem)';
+      dicaBox.style.backgroundColor = '#f9b17a';
+      dicaBox.style.padding = '5px 10px 5px 10px';
+      dicaBox.style.boxShadow = `rgba(249, 177, 122, 0.05) 0px 1px 0px,
+      rgba(249, 177, 122, 0.938) 0px 0px 8px`;
     }
   }
 }
@@ -203,12 +220,7 @@ function exibirMensagemPerdeu() {
   pontos = 0;
   atualizarPontuacao();
   exibirImagemAleatoria();
-  erroElement.textContent = 'PERDEU BOBÃO';
   nomeParcial = '';
-
-  setTimeout(() => {
-    erroElement.textContent = '';
-  }, 3000);
 }
 
 // Evento de tecla Enter no campo de entrada

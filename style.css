@@ -4,7 +4,7 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  background-color: #182625;
+  background-color: #161e31;
   font-family: 'Roboto', sans-serif;
 }
 
@@ -26,9 +26,9 @@
 #container {
   position: relative;
   text-align: center;
-  border: solid 20px #455559;
+  border: solid 20px #2d3250;
   border-radius: 20px;
-  background-color: #455559;
+  background-color: #2d3250;
   width: 400px;
   height: 300px;
   overflow: hidden;
@@ -42,6 +42,7 @@
   height: 100%;
   object-fit: cover;
   border-radius: 20px;
+  background-color: #2d3250;
 }
 
 #inputNome {
@@ -49,12 +50,16 @@
   font-size: 16px;
   border: none;
   border-radius: 4px;
-  background-color: #28403d;
+  background-color: #2d3250;
   color: white;
   height: 40%;
 
   grid-column: 3;
   grid-row: 4;
+}
+
+#inputNome::placeholder {
+  color: #f9b17a70;
 }
 
 #erro {
@@ -74,14 +79,12 @@
 #contagem {
   font-family: 'Roboto Mono', sans-serif;
   width: 1fr;
-  padding: 10px;
   font-size: 1.5rem;
 
   font-weight: bold;
   border: none;
   border-radius: 4px;
-  background-color: #28403d;
-  color: white;
+  color: #161e31;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -90,44 +93,60 @@
   grid-row: 2;
 }
 
+#scoreBox {
+  font-family: 'Roboto Mono', sans-serif;
+  color: #161e31;
+  background-color: #f9b17a;
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 0 0 15px #f9b17a;
+}
+
 .data-container-l {
   position: relative;
   text-align: center;
-  border: solid 10px #455559;
+  border: solid 10px #2d3250;
   border-radius: 20px;
-  background-color: #455559;
+  background-color: #2d3250;
   width: 16.5rem;
   height: 23.75rem;
   overflow: hidden;
-  color: white;
+  color: #f9b17a;
   font-weight: 500;
 
   grid-column: 2;
   grid-row-start: 4;
   grid-row-end: 3;
   justify-self: center;
+  box-shadow: rgba(0, 0, 0, 0.09) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px,
+    rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px,
+    rgba(0, 0, 0, 0.09) 0px 32px 16px;
 }
 
 .data-container-r {
   position: relative;
   text-align: center;
-  border: solid 10px #455559;
+  border: solid 10px #2d3250;
   border-radius: 20px;
-  background-color: #455559;
+  background-color: #2d3250;
   width: 16.5rem;
   height: 23.75rem;
   overflow: hidden;
-  color: white;
+  color: #f9b17a;
   font-weight: 500;
 
   grid-column: 4;
   grid-row-start: 4;
   grid-row-end: 3;
   justify-self: center;
+  box-shadow: rgba(0, 0, 0, 0.09) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px,
+    rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px,
+    rgba(0, 0, 0, 0.09) 0px 32px 16px;
 }
 
 li {
-  background-color: #455559;
+  background-color: #2d3250;
+  color: white;
 }
 
 .reset {
