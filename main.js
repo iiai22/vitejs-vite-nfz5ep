@@ -78,9 +78,6 @@ function atualizarUltimosScores() {
     }
   }
 }
-
-
-
 // Atualizar o melhor score no HTML
 function atualizarMelhorScore() {
   const scoresOrdenados = scores
