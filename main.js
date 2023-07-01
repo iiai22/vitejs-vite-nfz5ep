@@ -79,9 +79,13 @@ function atualizarUltimosScores() {
   }
 }
 
+
+
 // Atualizar o melhor score no HTML
 function atualizarMelhorScore() {
-  const scoresOrdenados = scores.sort((a, b) => b - a);
+  const scoresOrdenados = scores
+    .filter((score) => score !== 0)
+    .sort((a, b) => b - a);
 
   // Limpar o conteúdo anterior
   melhorScoreElement.innerHTML = '';

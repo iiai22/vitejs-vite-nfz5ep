@@ -129,3 +129,21 @@
 li {
   background-color: #455559;
 }
+
+.reset {
+  position: absolute;
+  padding: 5px 15px;
+  color: white;
+  background-color: #28403d;
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 9px #182625;
+  bottom: 10px;
+  transform: translate(-50%, 0);
+}
+
+.reset:active {
+  background-color: #28403d;
+  box-shadow: 0 5px #182625;
+  transform: translate(-50%, 4px);
+}
