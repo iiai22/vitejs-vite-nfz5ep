@@ -58,6 +58,9 @@ const dicaBox = document.getElementById('dicaBox');
 const ultimosScoresElement = document.querySelector('.data-container-r ul');
 const melhorScoreElement = document.querySelector('.data-container-l ul');
 
+const abaContato = document.getElementById('abaContato');
+const botaoContact = document.getElementById('botaoContact');
+
 // Obter os últimos scores do localStorage ou inicializar um array vazio
 let scores = JSON.parse(localStorage.getItem('scores')) || [];
 
@@ -126,7 +129,7 @@ function exibirImagemAleatoria() {
   imagemAtual = novaImagem;
   erroElement.textContent = '';
   dicaBox.textContent = '';
-  dicaBox.style = '';
+  dicaBox.style.display = '';
 
   blurValue = 15;
   imgElement.style.filter = `blur(${blurValue}px)`;

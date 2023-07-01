@@ -166,3 +166,45 @@ li {
   box-shadow: 0 5px #182625;
   transform: translate(-50%, 4px);
 }
+
+/*--------------------Header--------------------*/
+
+/* Style the header with a grey background and some padding */
+.header {
+  width: 100%;
+  position: fixed;
+  overflow: hidden;
+  background-color: #2d3250;
+}
+
+/* Style the header links */
+.header a {
+  float: left;
+  color: white;
+  text-align: center;
+  padding: 12px;
+  text-decoration: none;
+  font-size: 18px;
+  line-height: 25px;
+  background-color: #2d3250;
+  transition: background-color 0.5s;
+}
+
+/* Style the logo link (notice that we set the same value of line-height and font-size to prevent the header to increase when the font gets bigger */
+.header a.logo {
+  font-size: 25px;
+  font-weight: bold;
+  margin-left: 20rem;
+}
+
+/* Change the background color on mouse-over */
+.header a:hover {
+  background-color: #f9b17a;
+  color: #161e31;
+}
+
+/* Float the link section to the right */
+.header-right {
+  float: right;
+  margin-right: 20rem;
+}
