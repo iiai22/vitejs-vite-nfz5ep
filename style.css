@@ -167,6 +167,23 @@ li {
   transform: translate(-50%, 4px);
 }
 
+#dicaBox {
+  border-radius: 4px;
+  color: #161e31;
+  margin-bottom: 20px;
+  font-size: 1rem;
+  font-weight: 500;
+  letter-spacing: 1px;
+  position: fixed;
+  bottom: 70px;
+  left: 50%;
+  transform: translate(-50%, -13.5rem);
+  background-color: #f9b17a;
+  padding: 5px 10px 5px 10px;
+  box-shadow: rgba(249, 177, 122, 0.05) 0px 1px 0px,
+    rgba(249, 177, 122, 0.938) 0px 0px 8px;
+}
+
 /*--------------------Header--------------------*/
 a {
   color: #fff;
@@ -179,6 +196,7 @@ a:hover {
 
 .logo {
   font-size: 24px;
+  font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 4px;
   background: #2d3250;
@@ -288,7 +306,6 @@ nav {
 
   .data-container-r-mobile {
     text-align: center;
-    border: 5px solid #424769;
     border-radius: 20px;
     background-color: #424769;
     width: 16.5rem;
@@ -296,6 +313,7 @@ nav {
     overflow: hidden;
     color: #f9b17a;
     font-weight: 500;
+    cursor: default;
 
     box-shadow: rgba(0, 0, 0, 0.09) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px,
       rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px,
@@ -304,7 +322,6 @@ nav {
 
   .data-container-l-mobile {
     text-align: center;
-    border: 5px solid #424769;
     border-radius: 20px;
     background-color: #424769;
     width: 16.5rem;
@@ -312,6 +329,7 @@ nav {
     overflow: hidden;
     color: #f9b17a;
     font-weight: 500;
+    cursor: default;
 
     box-shadow: rgba(0, 0, 0, 0.09) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px,
       rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px,
@@ -320,10 +338,24 @@ nav {
 
   .data-container-l-mobile li {
     background-color: #424769;
+    transition: background-color 0.3s;
   }
 
   .data-container-r-mobile li {
     background-color: #424769;
+    transition: background-color 0.3s;
+  }
+
+  .data-container-l-mobile li:hover {
+    background-color: #3a3f5f;
+  }
+
+  .data-container-r-mobile li:hover {
+    background-color: #3a3f5f;
+  }
+
+  #dicaBox {
+    transform: translate(-50%, -5.5rem);
   }
 }
 

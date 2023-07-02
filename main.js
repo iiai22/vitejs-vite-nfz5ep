@@ -133,7 +133,7 @@ function exibirImagemAleatoria() {
   imagemAtual = novaImagem;
   erroElement.textContent = '';
   dicaBox.textContent = '';
-  dicaBox.style.display = '';
+  dicaBox.style.display = 'none';
 
   blurValue = 15;
   imgElement.style.filter = `blur(${blurValue}px)`;
@@ -174,20 +174,8 @@ function verificarResposta() {
       erroElement.textContent = `Errou, tente novamente.
 Tentativas restantes: ${tentativasRestantes}`;
       dicaBox.textContent = `Dica: ${getDicaFormatada(nome, nomeParcial)}`;
-      dicaBox.style.borderRadius = '4px';
-      dicaBox.style.color = '#161e31';
-      dicaBox.style.marginBottom = '20px';
-      dicaBox.style.fontSize = '1rem';
-      dicaBox.style.fontWeight = '500';
-      dicaBox.style.letterSpacing = '1px';
-      dicaBox.style.position = 'fixed';
-      dicaBox.style.bottom = '70px';
-      dicaBox.style.left = '50%';
-      dicaBox.style.transform = 'translate(-50%, -13.5rem)';
-      dicaBox.style.backgroundColor = '#f9b17a';
-      dicaBox.style.padding = '5px 10px 5px 10px';
-      dicaBox.style.boxShadow = `rgba(249, 177, 122, 0.05) 0px 1px 0px,
-      rgba(249, 177, 122, 0.938) 0px 0px 8px`;
+      dicaBox.style.display = '';
+
     }
   }
 }
