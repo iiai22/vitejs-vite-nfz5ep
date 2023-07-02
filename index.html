@@ -7,19 +7,54 @@
     <title>Vite App</title>
   </head>
   <body>
-    <div class="header">
-      <a href="#" class="logo">Vroom</a>
-      <div class="header-right">
-        <a href="#" class="fa-brands fa-instagram"></a>
-        <a href="#" class="fa-brands fa-discord"> </a>
-        <a
-          href="https://github.com/iiai22/vitejs-vite-nfz5ep"
-          target="_blank"
-          class="fa-brands fa-github"
-        ></a>
-      </div>
-    </div>
+    <header>
+      <nav>
+        <a href="/" class="logo">Vroom</a>
+        <div class="mobile-menu">
+          <div class="line1"></div>
+          <div class="line2"></div>
+          <div class="line3"></div>
+        </div>
+        <ul class="nav-list-normal">
+          <li><a href="/" class="fa-brands fa-instagram icon fa-2x"></a></li>
+          <li><a href="/" class="fa-brands fa-discord icon fa-2x"> </a></li>
+          <li>
+            <a
+              href="https://github.com/iiai22/vitejs-vite-nfz5ep"
+              target="_blank"
+              class="fa-brands fa-github icon fa-2x"
+            ></a>
+          </li>
+        </ul>
+      </nav>
+    </header>
+
     <div class="grid">
+      <ul class="nav-list">
+        <li><a href="/" class="fa-brands fa-instagram icon fa-2x"></a></li>
+        <li><a href="/" class="fa-brands fa-discord icon fa-2x"> </a></li>
+        <li>
+          <a
+            href="https://github.com/iiai22/vitejs-vite-nfz5ep"
+            target="_blank"
+            class="fa-brands fa-github icon fa-2x"
+          ></a>
+        </li>
+
+        <li>
+          <div class="data-container-l-mobile">
+            Best Score:
+            <ul></ul>
+          </div>
+        </li>
+
+        <li>
+          <div class="data-container-r-mobile">
+            Last Score:
+            <ul></ul>
+          </div>
+        </li>
+      </ul>
       <div class="data-container-l grid-row-span-2">
         Best Score:
         <ul></ul>
@@ -39,6 +74,6 @@
       src="https://kit.fontawesome.com/9914bd8223.js"
       crossorigin="anonymous"
     ></script>
-    <script type="module" src="/mobile-navbar.js"></script>
+    <script type="module" src="mobile-navbar.js"></script>
   </body>
 </html>

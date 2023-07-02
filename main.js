@@ -55,8 +55,12 @@ const erroElement = document.getElementById('erro');
 const score = document.getElementById('scoreBox');
 const dicaElement = document.getElementById('dica');
 const dicaBox = document.getElementById('dicaBox');
-const ultimosScoresElement = document.querySelector('.data-container-r ul');
-const melhorScoreElement = document.querySelector('.data-container-l ul');
+const ultimosScoresElement = document.querySelector(
+  '.data-container-r ul, .data-container-r-mobile ul'
+);
+const melhorScoreElement = document.querySelector(
+  '.data-container-l ul, .data-container-l-mobile ul'
+);
 
 const abaContato = document.getElementById('abaContato');
 const botaoContact = document.getElementById('botaoContact');
