@@ -55,10 +55,10 @@ const erroElement = document.getElementById('erro');
 const score = document.getElementById('scoreBox');
 const dicaElement = document.getElementById('dica');
 const dicaBox = document.getElementById('dicaBox');
-const ultimosScoresElement = document.querySelector(
+const ultimosScoresElements = document.querySelectorAll(
   '.data-container-r ul, .data-container-r-mobile ul'
 );
-const melhorScoreElement = document.querySelector(
+const melhorScoreElements = document.querySelectorAll(
   '.data-container-l ul, .data-container-l-mobile ul'
 );
 
@@ -75,35 +75,37 @@ function atualizarPontuacao() {
 
 // Atualizar a lista de últimos scores no HTML
 function atualizarUltimosScores() {
-  ultimosScoresElement.innerHTML = '';
+  ultimosScoresElements.forEach((ulElement) => {
+    ulElement.innerHTML = '';
 
-  for (let i = scores.length - 1; i >= 0; i--) {
-    const scoreValue = scores[i];
-    if (scoreValue !== 0) {
-      const liElement = document.createElement('li');
-      liElement.textContent = `Score: ${scoreValue}`;
-      ultimosScoresElement.appendChild(liElement);
+    for (let i = scores.length - 1; i >= 0; i--) {
+      const scoreValue = scores[i];
+      if (scoreValue !== 0) {
+        const liElement = document.createElement('li');
+        liElement.textContent = `Score: ${scoreValue}`;
+        ulElement.appendChild(liElement);
+      }
     }
-  }
+  });
 }
+
 // Atualizar o melhor score no HTML
 function atualizarMelhorScore() {
   const scoresOrdenados = scores
     .filter((score) => score !== 0)
     .sort((a, b) => b - a);
 
-  // Limpar o conteúdo anterior
-  melhorScoreElement.innerHTML = '';
+  melhorScoreElements.forEach((ulElement) => {
+    ulElement.innerHTML = '';
 
-  // Mapear as posições com os emojis correspondentes
-  const posicoes = ['🥇', '🥈', '🥉'];
+    const posicoes = ['🥇', '🥈', '🥉'];
 
-  // Exibir até os três melhores scores
-  scoresOrdenados.slice(0, 3).forEach((scoreValue, index) => {
-    const liElement = document.createElement('li');
-    const posicaoEmoji = posicoes[index] || ''; // Caso não haja emoji definido para a posição
-    liElement.textContent = `${posicaoEmoji}: Score ${scoreValue}`;
-    melhorScoreElement.appendChild(liElement);
+    scoresOrdenados.slice(0, 3).forEach((scoreValue, index) => {
+      const liElement = document.createElement('li');
+      const posicaoEmoji = posicoes[index] || '';
+      liElement.textContent = `${posicaoEmoji}: Score ${scoreValue}`;
+      ulElement.appendChild(liElement);
+    });
   });
 }
 
@@ -175,7 +177,6 @@ function verificarResposta() {
 Tentativas restantes: ${tentativasRestantes}`;
       dicaBox.textContent = `Dica: ${getDicaFormatada(nome, nomeParcial)}`;
       dicaBox.style.display = '';
-
     }
   }
 }
