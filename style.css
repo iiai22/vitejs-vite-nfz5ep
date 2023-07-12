@@ -281,7 +281,7 @@ nav {
   a:hover {
     opacity: 1;
     color: #f9b17a;
-    text-shadow: 0 0 15px #f9b17a;
+    text-shadow: 0 0 5px #f9b17a;
   }
   .logo {
     transition: opacity 0.3s;
@@ -338,20 +338,10 @@ nav {
 
   .data-container-l-mobile li {
     background-color: #424769;
-    transition: background-color 0.3s;
   }
 
   .data-container-r-mobile li {
     background-color: #424769;
-    transition: background-color 0.3s;
-  }
-
-  .data-container-l-mobile li:hover {
-    background-color: #3a3f5f;
-  }
-
-  .data-container-r-mobile li:hover {
-    background-color: #3a3f5f;
   }
 
   #dicaBox {
@@ -382,4 +372,47 @@ nav {
 }
 .mobile-menu.active .line3 {
   transform: rotate(45deg) translate(-5px, -7px);
+}
+.fa-gear {
+  transition: transform 0.3s;
+}
+.fa-gear:hover {
+  transform: rotate(90deg);
+}
+
+/*settingsMenu*/
+
+.settingsMenu {
+  position: absolute;
+  z-index: 100;
+  background-color: #000000ce;
+  width: 100%;
+  height: 100%;
+  display: flex; /* flex */
+  justify-content: center;
+  align-items: center;
+}
+
+.settings {
+  z-index: 101;
+  background-color: #424769;
+  width: 50%;
+  height: 50%;
+  border-radius: 20px;
+}
+
+.close {
+  color: #fff;
+  font-size: 2rem;
+  background-color: #424769;
+  position: relative;
+  left: 100%;
+  margin-left: -3rem;
+  top: 10px;
+  transition: 0.3s;
+  cursor: pointer;
+}
+
+.close:hover {
+  font-weight: bold;
 }
